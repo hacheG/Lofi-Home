@@ -86,7 +86,6 @@ function sonidoDescanso(){
     audio2.play();
     console.log("en funcion descanso");
 };
-const urlPsy = `https://pokeapi.co/api/v2/pokemon/54`
 function pokeSearch(){
     let numberPokemon = Math.floor(Math.random() * (1008 - 1) + 1) ;
     let numberPokemonBack = Math.floor(Math.random() * (1008 - 1) + 1) ;
@@ -94,7 +93,9 @@ function pokeSearch(){
 
     const url = `https://pokeapi.co/api/v2/pokemon/${numberPokemon}`
     const url2 = `https://pokeapi.co/api/v2/pokemon/${numberPokemonBack}`
-    
+    const urlPsy = `https://pokeapi.co/api/v2/pokemon/54`
+
+    const psyduck = `url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/54.png")`
 
     fetch(url)
     .then( response => response.json())
@@ -103,7 +104,7 @@ function pokeSearch(){
 
     fetch(url2)
     .then( response => response.json())
-    .then( json => pokeShowBack(json.name, json.sprites.back_default))
+    .then( json => pokeShowBack(json.name, json.sprites.front_default, json.sprites.back_default))
     .catch( err => console.log(err))
 };
 
@@ -114,12 +115,12 @@ function pokeShow(nombre, pokeImage){
     pokemon.style.backgroundSize= "cover";
 };
 
-function pokeShowBack(nombre, pokeBack){
+function pokeShowBack(nombre, pokeImage, pokeBack ){
     
     if(pokeBack === null){
         console.log("el nulo...");
-        pokemonBack.textContent = "psyduck"
-        pokemonBack.style.backgroundImage = `url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/54.png")`
+        pokemonBack.textContent = nombre
+        pokemonBack.style.backgroundImage = `url(${pokeImage})`
         pokemonBack.style.backgroundRepeat = "no-repeat";
         pokemonBack.style.backgroundSize= "cover";
     } else {
