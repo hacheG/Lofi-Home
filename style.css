@@ -1,6 +1,6 @@
 body{
     background-color: black;
-    color: white
+    color: white;
 }
 
 .showHour{
@@ -9,4 +9,32 @@ body{
 	margin-right: auto;
 	width: 100px;
 
+}
+
+.pokemon-container{
+	width: 600px;
+	height: 400px;
+	position: relative;
+}
+
+.pokemon{
+	/* border: 1px solid #fff; */
+	width: 300px;
+	height: 300px;
+	font-size: xx-large;
+	text-align: center;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.pokemon-back{
+	/* border: 1px solid #fff; */
+	width: 300px;
+	height: 300px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	font-size: xx-large;
+	text-align: center;
 }

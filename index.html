@@ -1,7 +1,10 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
-
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css"> </>
+        <link rel="shortcut icon" href="assets/reloj.png" type="image/x-icon">
 	    <title>time start</title>
     </head>
     <body>
@@ -18,11 +21,16 @@
         </label>
     </form>
     <button class="button">ok</button>
-    <button class="silencio1">silencio1</button>
-    <button class="silencio2">silencio2</button>
+    <button class="silencio1">silencio trabajo</button>
+    <button class="silencio2">silencio descanso</button>
 
-    <audio class="trabajar" src="assets/Spirit of the Girl.mp3" controls preload="auto" loop></audio>
-    <audio class="descanso" src="assets/Gregorian Chant.mp3" controls preload="auto" loop></audio>
+    <audio class="trabajar" src="assets/Spirit of the Girl.mp3" preload="auto" loop></audio>
+    <audio class="descanso" src="assets/Gregorian Chant.mp3"  preload="auto" loop></audio>
+    
+    <div class="pokemon-container">
+        <div class="pokemon"></div>
+        <div class="pokemon-back"></div>
+    </div>
     <script src="app.js"></script>
 
     </body>

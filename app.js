@@ -2,6 +2,8 @@ const showHour = document.querySelector(".showHour");
 
 let $setTrabajo = document.querySelector(".trabajo");
 let $setDescanso = document.querySelector(".descansar");
+const pokemon = document.querySelector(".pokemon");
+const pokemonBack = document.querySelector(".pokemon-back")
 const boton = document.querySelector(".button");
 
 
@@ -22,9 +24,6 @@ let setTrabajo;
 let setDescanso;
 let deshabilitado = true;
 
-console.log(50%50);
-
-
 $setTrabajo.addEventListener("change", e => setTrabajo = e.target.value);
 $setDescanso.addEventListener("change", e => setDescanso = e.target.value);
 
@@ -42,14 +41,20 @@ boton.addEventListener("click", () => {
 
 setInterval( () => {
 
-	const minutos = new Date().getMinutes();
-	const segundos = new Date().getSeconds();
-	const hora = new Date().getHours();
+	const dateMinutos = new Date();
+    const minutos = dateMinutos.getMinutes();
+
+	const dateSegundos = new Date();
+	const segundos = dateSegundos.getSeconds()
+
+    const dateHora = new Date();
+    const hora = dateHora.getHours()
+
 	showHour.innerHTML = `
 	 	${hora} : ${minutos} : ${segundos}
 	`
-	console.log(`${minutos} : ${segundos}`);
-    console.log({setTrabajo, setDescanso});
+	// console.log(`${minutos} : ${segundos}`);
+    // console.log({setTrabajo, setDescanso});
 
     if(Number(setTrabajo) + 1 === minutos){
         audio1.muted = false
@@ -61,7 +66,8 @@ setInterval( () => {
         audio2.pause();
     }
 
-    if((minutos)=== Number(setTrabajo)){
+    if( ((minutos)=== Number(setTrabajo)) ){
+	    console.log(`${minutos} : ${segundos}`);
         sonidoATrabajar();
         }
 
@@ -80,4 +86,48 @@ function sonidoDescanso(){
     audio2.play();
     console.log("en funcion descanso");
 };
+const urlPsy = `https://pokeapi.co/api/v2/pokemon/54`
+function pokeSearch(){
+    let numberPokemon = Math.floor(Math.random() * (1008 - 1) + 1) ;
+    let numberPokemonBack = Math.floor(Math.random() * (1008 - 1) + 1) ;
+    console.log({numberPokemon, numberPokemonBack});
 
+    const url = `https://pokeapi.co/api/v2/pokemon/${numberPokemon}`
+    const url2 = `https://pokeapi.co/api/v2/pokemon/${numberPokemonBack}`
+    
+
+    fetch(url)
+    .then( response => response.json())
+    .then( json => pokeShow(json.name, json.sprites.front_default, json.sprites.back_default))
+    .catch( err => console.log(err))
+
+    fetch(url2)
+    .then( response => response.json())
+    .then( json => pokeShowBack(json.name, json.sprites.back_default))
+    .catch( err => console.log(err))
+};
+
+function pokeShow(nombre, pokeImage){
+    pokemon.textContent = nombre
+    pokemon.style.backgroundImage = `url(${pokeImage})`
+    pokemon.style.backgroundRepeat = "no-repeat";
+    pokemon.style.backgroundSize= "cover";
+};
+
+function pokeShowBack(nombre, pokeBack){
+    
+    if(pokeBack === null){
+        console.log("el nulo...");
+        pokemonBack.textContent = "psyduck"
+        pokemonBack.style.backgroundImage = `url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/54.png")`
+        pokemonBack.style.backgroundRepeat = "no-repeat";
+        pokemonBack.style.backgroundSize= "cover";
+    } else {
+        pokemonBack.textContent = nombre
+        pokemonBack.style.backgroundImage = `url(${pokeBack})`
+        pokemonBack.style.backgroundRepeat = "no-repeat";
+        pokemonBack.style.backgroundSize= "cover";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", pokeSearch)
