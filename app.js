@@ -37,7 +37,7 @@ const intervalID = setInterval(() => {
     let minutes = new Date().getMinutes();
     let seconds = new Date().getSeconds();
     let abbrevation = "";
-    hours -= 12
+    if(hours > 12)hours -= 12
 
     if(new Date().getHours() > 12){
         abbrevation = "PM";
@@ -94,9 +94,8 @@ function comparation({inicioTrabajo, inicioDescanso}){
         showHour.innerHTML = `
         ${e.data[0]} : ${e.data[1]} : ${e.data[2]} ${e.data[3]}
         `
-        console.log(inicioTrabajo, inicioDescanso);
-        
-        
+        // console.log(inicioTrabajo, inicioDescanso);
+
         if(Number(inicioTrabajo) === e.data[1] && e.data[2] === 0){
             sonidoATrabajar()
         };
@@ -130,7 +129,7 @@ function sonidoADescansar(){
 function pokeSearch(){
     let numberPokemon = Math.floor(Math.random() * (1008 - 1) + 1) ;
     let numberPokemonBack = Math.floor(Math.random() * (1008 - 1) + 1) ;
-    console.log({numberPokemon, numberPokemonBack});
+    // console.log({numberPokemon, numberPokemonBack});
 
     const url = `https://pokeapi.co/api/v2/pokemon/${numberPokemon}`
     const url2 = `https://pokeapi.co/api/v2/pokemon/${numberPokemonBack}`

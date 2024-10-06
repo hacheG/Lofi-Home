@@ -1,10 +1,10 @@
 let hours = new Date().getHours();
-hours = hours - 12
 let minutes = new Date().getMinutes();
 let seconds = new Date().getSeconds();
 let abbrevation = "";
 
-console.log(new Date());
+if(hours > 12)hours -= 12
+// console.log(new Date());
 
 setInterval(() => {
     seconds++

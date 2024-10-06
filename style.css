@@ -1,16 +1,21 @@
 body{
     background-color: black;
     color: white;
+	font-size: x-large;
 }
 
 .showHour{
 	border: 1px solid white;
 	margin-left: auto;
 	margin-right: auto;
-	width: 100px;
+	width: 30%;
+	text-align: center;
 
 }
 
+.boton{
+	font-size: large;
+}
 .pokemon-container{
 	width: 600px;
 	height: 400px;
