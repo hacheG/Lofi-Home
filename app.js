@@ -17,12 +17,21 @@ function showInstrution(){
     } else {
         instrucciones.innerHTML = `<pre>
         INSTRUCCIONES
-        Ponga en el campo INICIO TRABAJO el valor numerico del minuto en el que iniciara a trabajar
+        Ponga en el campo MINUTO INICIO TRABAJO el valor numerico del minuto en el que iniciara a trabajar
+        por ejemplo, si desea empezar a trabajar a las 11:00 en punto, debe llenar ese campo con 0
         despues...
-        Ponga en el campo INICIO DESCANSO el valor numerico del minuto en el que iniciara su descancito
+
+        Ponga en el campo MINUTO INICIO DESCANSO el valor numerico del minuto en el que iniciara su descancito
+        por ejemplo, si desea empezar su descanso a las 11:50, debe llenar ese campo con 50.
+
+        De esta manera sonara una alarma cada hora en punto 12:00, 1:00, 2:00... para avisarle que debe ponerse
+        a trabajar y a cada hora con 50 minutos, 12:50, 1:50, 2:50... sonara otra alarma para avisarle que es tiempo
+        de descansar.
         
         De click en el boton Settear tiempo y a trabajar !!!!
         tendra un par de amigos acompañandole...
+        
+        No olvide que puede silenciar las alarmas dando click en el boton que dice silencio.
         
         Si desea cambiar los tiempos que a puesto con anterioridad, solo de click en el boton 
         Restablecer tiempo
