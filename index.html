@@ -8,21 +8,27 @@
 	    <title>time start</title>
     </head>
     <body>
-	<div class="showHour"></div>
-    <form action="">
+	<div class="showHour">TIMER</div>
+    <div class="instrucciones"></div>
+    <form id="formulario" action="">
         <label for="">
             Inicio de trabajo
-            <input class="trabajo" type="number">
+            <input id="job" class="trabajo" type="number" placeholder="Pon el minuto del trabajo">
         </label>
 
         <label for="">
             Inicio de descanso
-            <input class="descansar" type="number">
+            <input class="descansar" type="number" placeholder="Pon el minuto del descanso">
         </label>
+
+        <input type="submit" value="Settear tiempo" name="" id="">
+        <input type="reset" value="Restablecer tiempo">
     </form>
-    <button class="button">ok</button>
-    <button class="silencio1">silencio trabajo</button>
-    <button class="silencio2">silencio descanso</button>
+    <!-- <button class="button">ok</button> -->
+    <button class="silencio1">silencio</button>
+    <!-- <button class="silencio2">silencio descanso</button> -->
+
+    <div class="alerta"></div>
 
     <audio class="trabajar" src="assets/Spirit of the Girl.mp3" preload="auto" loop></audio>
     <audio class="descanso" src="assets/Gregorian Chant.mp3"  preload="auto" loop></audio>

@@ -1,91 +1,102 @@
-const showHour = document.querySelector(".showHour");
 
-let $setTrabajo = document.querySelector(".trabajo");
-let $setDescanso = document.querySelector(".descansar");
+const formulario = document.querySelector("#formulario");
 const pokemon = document.querySelector(".pokemon");
-const pokemonBack = document.querySelector(".pokemon-back")
-const boton = document.querySelector(".button");
-
-
+const pokemonBack = document.querySelector(".pokemon-back");
 const audio1 = document.querySelector(".trabajar");
 const audio2 = document.querySelector(".descanso");
+const showHour = document.querySelector(".showHour");
+const instrucciones = document.querySelector(".instrucciones");
 
+instrucciones.innerHTML = `<pre>
+instrucciones
+Ponga en el campo INICIO TRABAJO el valor numerico del minuto en el que iniciara a trabajar
+despues...
+Ponga en el campo INICIO DESCANSO el valor numerico del minuto en el que iniciara su descancito
+
+De click en el boton Settear tiempo y a trabajar !!!!
+tendra un par de amigos acompañandole...
+
+Si desea cambiar los tiempos que a puesto con anterioridad, solo de click en el boton 
+Restablecer tiempo
+</pre>`
 const silencio1 = document.querySelector(".silencio1");
 silencio1.addEventListener("click", () => {
     audio1.muted = true;
-});
-
-const silencio2 = document.querySelector(".silencio2");
-silencio2.addEventListener("click", () => {
     audio2.muted = true;
 });
 
-let setTrabajo;
-let setDescanso;
-let deshabilitado = true;
+let pomodoroTimes = {
+    inicioTrabajo: "",
+    inicioDescanso: ""
+};
 
-$setTrabajo.addEventListener("change", e => setTrabajo = e.target.value);
-$setDescanso.addEventListener("change", e => setDescanso = e.target.value);
-
-boton.addEventListener("click", () => {
-    if(deshabilitado){
-        $setDescanso.disabled = deshabilitado;
-        $setTrabajo.disabled = deshabilitado;
-        deshabilitado = false
-    } else {
-        $setDescanso.disabled = deshabilitado;
-        $setTrabajo.disabled = deshabilitado;
-        deshabilitado = true
-    }
+formulario.addEventListener("submit", validateField);
+formulario.addEventListener("reset", () => {
+    window.location.reload();
 });
 
-setInterval( () => {
+function validateField(e){
+    e.preventDefault();
+    const inicioTrabajo = document.querySelector(".trabajo").value;
+    const inicioDescanso = document.querySelector(".descansar").value;
 
-	const dateMinutos = new Date();
-    const minutos = dateMinutos.getMinutes();
-
-	const dateSegundos = new Date();
-	const segundos = dateSegundos.getSeconds()
-
-    const dateHora = new Date();
-    const hora = dateHora.getHours()
-
-	showHour.innerHTML = `
-	 	${hora} : ${minutos} : ${segundos}
-	`
-	// console.log(`${minutos} : ${segundos}`);
-    // console.log({setTrabajo, setDescanso});
-
-    if(Number(setTrabajo) + 1 === minutos){
-        audio1.muted = false
-        audio1.pause();
-    }
-
-    if(Number(setDescanso) + 1 === minutos){
-        audio2.muted = false
-        audio2.pause();
-    }
-
-    if( ((minutos)=== Number(setTrabajo)) ){
-	    console.log(`${minutos} : ${segundos}`);
-        sonidoATrabajar();
-        }
-
-	if( minutos === Number(setDescanso)){
-        sonidoDescanso()
+    pomodoroTimes = {
+        inicioTrabajo,
+        inicioDescanso,
+    };
+    
+    const validado = Object.values(pomodoroTimes).every( value => value !== "")
+    if(!validado){
+        showAlert("llena ambos campos, por favor!")
+        return;
     };
 
-},1000)
+    comparation(pomodoroTimes);
+};
+
+function comparation({inicioTrabajo, inicioDescanso}){
+
+    const myWorker = new Worker("demoWorkers.js");
+    // console.log(myWorker);
+    myWorker.onmessage = (e) => {
+        // console.log(e.data)
+        
+        showHour.innerHTML = `
+        ${e.data[0]} : ${e.data[1]} : ${e.data[2]} ${e.data[3]}
+        `
+        console.log(inicioTrabajo, inicioDescanso);
+        
+        
+        if(Number(inicioTrabajo) === e.data[1] && e.data[2] === 0){
+            sonidoATrabajar()
+        };
+
+        if(Number(inicioDescanso) === e.data[1] && e.data[2] === 0){
+            sonidoADescansar()
+        };
+    };
+};
+
+function showAlert(msj){
+    const mensaje = document.querySelector(".alerta");
+    mensaje.textContent = msj
+    setInterval(() => {
+        mensaje.textContent = ""
+    }, 3000);
+};
 
 function sonidoATrabajar(){
+    audio1.muted = false;
     audio1.play();
     console.log("en funcion trabajo");
 };
 
-function sonidoDescanso(){
+function sonidoADescansar(){
+    audio2.muted = false;
     audio2.play();
     console.log("en funcion descanso");
 };
+
 function pokeSearch(){
     let numberPokemon = Math.floor(Math.random() * (1008 - 1) + 1) ;
     let numberPokemonBack = Math.floor(Math.random() * (1008 - 1) + 1) ;
@@ -131,4 +142,7 @@ function pokeShowBack(nombre, pokeImage, pokeBack ){
     }
 }
 
-document.addEventListener("DOMContentLoaded", pokeSearch)
+document.addEventListener("DOMContentLoaded", pokeSearch);
+
+
+ 
