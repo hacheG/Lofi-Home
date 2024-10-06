@@ -12,10 +12,10 @@ instrucciones.onclick = showInstrution;
 function showInstrution(){
     console.log("on click");
     const show = document.querySelector(".show");
-    if(show){
-        instrucciones.innerHTML = "INSTRUCCIONES (click para abrir)";
+    if(!show){
+        instrucciones.innerHTML = `<pre class="show">INSTRUCCIONES (click aqui para leer)</pre>`;
     } else {
-        instrucciones.innerHTML = `<pre class="show">
+        instrucciones.innerHTML = `<pre>
         INSTRUCCIONES
         Ponga en el campo INICIO TRABAJO el valor numerico del minuto en el que iniciara a trabajar
         despues...
@@ -68,12 +68,14 @@ formulario.addEventListener("reset", () => {
 
 function validateField(e){
     e.preventDefault();
-    const inicioTrabajo = document.querySelector(".trabajo").value;
-    const inicioDescanso = document.querySelector(".descansar").value;
+    // disabled
+    const inicioTrabajo = document.querySelector(".trabajo");
+    
+    const inicioDescanso = document.querySelector(".descansar");
 
     pomodoroTimes = {
-        inicioTrabajo,
-        inicioDescanso,
+        inicioTrabajo: inicioTrabajo.value,
+        inicioDescanso: inicioDescanso.value,
     };
     
     const validado = Object.values(pomodoroTimes).every( value => value !== "")
@@ -81,7 +83,8 @@ function validateField(e){
         showAlert("llena ambos campos, por favor!")
         return;
     };
-
+    inicioTrabajo.disabled = true;
+    inicioDescanso.disabled = true;
     comparation(pomodoroTimes);
 };
 
@@ -94,7 +97,7 @@ function comparation({inicioTrabajo, inicioDescanso}){
         showHour.innerHTML = `
         ${e.data[0]} : ${e.data[1]} : ${e.data[2]} ${e.data[3]}
         `
-        // console.log(inicioTrabajo, inicioDescanso);
+        console.log(inicioTrabajo, inicioDescanso);
 
         if(Number(inicioTrabajo) === e.data[1] && e.data[2] === 0){
             sonidoATrabajar()
