@@ -7,18 +7,49 @@ const audio2 = document.querySelector(".descanso");
 const showHour = document.querySelector(".showHour");
 const instrucciones = document.querySelector(".instrucciones");
 
-instrucciones.innerHTML = `<pre>
-instrucciones
-Ponga en el campo INICIO TRABAJO el valor numerico del minuto en el que iniciara a trabajar
-despues...
-Ponga en el campo INICIO DESCANSO el valor numerico del minuto en el que iniciara su descancito
+instrucciones.onclick = showInstrution;
 
-De click en el boton Settear tiempo y a trabajar !!!!
-tendra un par de amigos acompañandole...
+function showInstrution(){
+    console.log("on click");
+    const show = document.querySelector(".show");
+    if(show){
+        instrucciones.innerHTML = "INSTRUCCIONES (click para abrir)";
+    } else {
+        instrucciones.innerHTML = `<pre class="show">
+        INSTRUCCIONES
+        Ponga en el campo INICIO TRABAJO el valor numerico del minuto en el que iniciara a trabajar
+        despues...
+        Ponga en el campo INICIO DESCANSO el valor numerico del minuto en el que iniciara su descancito
+        
+        De click en el boton Settear tiempo y a trabajar !!!!
+        tendra un par de amigos acompañandole...
+        
+        Si desea cambiar los tiempos que a puesto con anterioridad, solo de click en el boton 
+        Restablecer tiempo
 
-Si desea cambiar los tiempos que a puesto con anterioridad, solo de click en el boton 
-Restablecer tiempo
-</pre>`
+        (click para cerrar)
+        </pre>`
+    }
+};
+
+const intervalID = setInterval(() => {
+    let hours = new Date().getHours();
+    let minutes = new Date().getMinutes();
+    let seconds = new Date().getSeconds();
+    let abbrevation = "";
+    hours -= 12
+
+    if(new Date().getHours() > 12){
+        abbrevation = "PM";
+    } else {
+        abbrevation = "AM";
+    }
+    showHour.innerHTML = `
+        ${hours} : ${minutes} : ${seconds} ${abbrevation}
+        `
+}, 1000);
+
+
 const silencio1 = document.querySelector(".silencio1");
 silencio1.addEventListener("click", () => {
     audio1.muted = true;
@@ -59,8 +90,7 @@ function comparation({inicioTrabajo, inicioDescanso}){
     const myWorker = new Worker("demoWorkers.js");
     // console.log(myWorker);
     myWorker.onmessage = (e) => {
-        // console.log(e.data)
-        
+        clearInterval(intervalID)
         showHour.innerHTML = `
         ${e.data[0]} : ${e.data[1]} : ${e.data[2]} ${e.data[3]}
         `
