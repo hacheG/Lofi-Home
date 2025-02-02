@@ -5,49 +5,68 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css"> </>
         <link rel="shortcut icon" href="assets/reloj.png" type="image/x-icon">
-	    <title>time start</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Itim&family=Mogra&display=swap" rel="stylesheet">
+        <title>time start</title>
     </head>
     <body>
-	<div class="showHour">TIMER</div>
-    <div class="instrucciones"><pre>
-        INSTRUCCIONES
+	
+    <div class="instrucciones">
+        <div class="show-div">
+        <p> INSTRUCCIONES </p>
         Ponga en el campo MINUTO INICIO TRABAJO el valor numerico del minuto en el que iniciara a trabajar
         por ejemplo, si desea empezar a trabajar a las 11:00 en punto, debe llenar ese campo con 0
         despues...
-
+        <br><br>
+        
         Ponga en el campo MINUTO INICIO DESCANSO el valor numerico del minuto en el que iniciara su descancito
         por ejemplo, si desea empezar su descanso a las 11:50, debe llenar ese campo con 50.
-
+        <br><br>
+        
         De esta manera sonara una alarma cada hora en punto 12:00, 1:00, 2:00... para avisarle que debe ponerse
         a trabajar y a cada hora con 50 minutos, 12:50, 1:50, 2:50... sonara otra alarma para avisarle que es tiempo
         de descansar.
+        <br><br>
         
         De click en el boton Settear tiempo y a trabajar !!!!
         tendra un par de amigos acompañandole...
+        <br><br>
         
         No olvide que puede silenciar las alarmas dando click en el boton que dice silencio.
+        <br><br>
         
         Si desea cambiar los tiempos que a puesto con anterioridad, solo de click en el boton 
         Restablecer tiempo
 
         (click para cerrar)
-        </pre></div>
+        </div>
+    </div>
+        <hr>
+        <div class="showHour">TIMER</div>
+        <hr>
     <form id="formulario" action="">
         <label for="">
-            Minuto de inicio de trabajo
+            <p class="titulo">Minuto de inicio de trabajo</p>
             <input id="job" class="trabajo" type="number" placeholder="Pon el minuto del trabajo">
         </label>
 
         <label for="">
-            Minuto de inicio de descanso
+            <p class="titulo">Minuto de inicio de descanso</p>
             <input class="descansar" type="number" placeholder="Pon el minuto del descanso">
         </label>
+        <hr>
+<div>
+    <input class="boton" type="submit" value="Settear tiempo" name="" >
+    <br>
+    <input class="boton" type="reset" value="Restablecer tiempo">
+    <br>
+    <button class="silencio1 boton">silencio</button>
 
-        <input class="boton" type="submit" value="Settear tiempo" name="" >
-        <input class="boton" type="reset" value="Restablecer tiempo">
+</div>
     </form>
     <!-- <button class="button">ok</button> -->
-    <button class="silencio1 boton">silencio</button>
     <!-- <button class="silencio2">silencio descanso</button> -->
 
     <div class="alerta"></div>
